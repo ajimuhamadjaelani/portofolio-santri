@@ -1,8 +1,9 @@
-import { supabase } from '@/lib/supabase'
+import { supabase } from '../../lib/supabase'
 
 export default async function Page({ params }) {
-  const username = params.username
+  const { username } = await params
 
+  // cari santri
   const { data: santri } = await supabase
     .from('santri')
     .select('*')
@@ -10,9 +11,10 @@ export default async function Page({ params }) {
     .single()
 
   if (!santri) {
-    return <h1>Santri tidak ditemukan</h1>
+    return <div>Santri tidak ditemukan</div>
   }
 
+  // ambil karya
   const { data: karya } = await supabase
     .from('karya')
     .select('*')
@@ -21,27 +23,14 @@ export default async function Page({ params }) {
   return (
     <div style={{ padding: 20 }}>
       <h1>{santri.nama}</h1>
-      <p>@{santri.username}</p>
 
-      <hr />
-
-      <h2>Karya:</h2>
-
-      {karya?.length > 0 ? (
-        karya.map((k) => (
-          <div key={k.id} style={{
-            border: '1px solid #ddd',
-            padding: 10,
-            marginBottom: 10,
-            borderRadius: 8
-          }}>
-            <h3>{k.judul}</h3>
-            <p>{k.deskripsi}</p>
-          </div>
-        ))
-      ) : (
-        <p>Belum ada karya</p>
-      )}
+      {karya?.map((item) => (
+        <div key={item.id}>
+          <h3>{item.judul}</h3>
+          <p>{item.deskripsi}</p>
+          <a href={item.link}>Lihat</a>
+        </div>
+      ))}
     </div>
   )
 }
