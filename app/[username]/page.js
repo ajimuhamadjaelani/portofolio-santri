@@ -1,7 +1,7 @@
 import { supabase } from '../../lib/supabase'
 
 export default async function Page({ params }) {
-  const { username } = params
+  const { username } = await params
 
   // cari santri
   const { data: santri } = await supabase
@@ -27,29 +27,19 @@ export default async function Page({ params }) {
   return (
     <div style={styles.page}>
       <div style={styles.container}>
-
         <h1 style={styles.title}>{santri.nama}</h1>
-        <p style={styles.subtitle}>@{santri.username}</p>
 
         <div style={styles.grid}>
           {karya?.map((item) => (
             <div key={item.id} style={styles.card}>
               <h3 style={styles.cardTitle}>{item.judul}</h3>
               <p style={styles.cardDesc}>{item.deskripsi}</p>
-
-              {item.link && (
-                <a
-                  href={item.link}
-                  target="_blank"
-                  style={styles.link}
-                >
-                  Lihat Karya →
-                </a>
-              )}
+              <a href={item.link} style={styles.link}>
+                Lihat →
+              </a>
             </div>
           ))}
         </div>
-
       </div>
     </div>
   )
@@ -58,7 +48,7 @@ export default async function Page({ params }) {
 const styles = {
   page: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #0b0f19, #0f172a)',
+    background: '#0b0f19',
     color: '#fff',
     padding: 20,
     fontFamily: 'Arial, sans-serif'
@@ -70,14 +60,11 @@ const styles = {
   },
 
   title: {
-    fontSize: 34,
-    marginBottom: 5,
-    color: '#4ea1ff'
-  },
-
-  subtitle: {
-    color: '#94a3b8',
-    marginBottom: 25
+    fontSize: 32,
+    marginBottom: 20,
+    color: '#4ea1ff',
+    borderBottom: '2px solid #1f2a44',
+    paddingBottom: 10
   },
 
   grid: {
@@ -87,12 +74,12 @@ const styles = {
   },
 
   card: {
-    background: '#111827',
+    background: '#121a2a',
     border: '1px solid #1f2a44',
     padding: 15,
     borderRadius: 12,
-    boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-    transition: '0.3s'
+    transition: '0.3s',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.4)'
   },
 
   cardTitle: {
@@ -101,13 +88,13 @@ const styles = {
   },
 
   cardDesc: {
-    color: '#cbd5e1',
+    color: '#ccc',
     fontSize: 14,
     marginBottom: 10
   },
 
   link: {
-    color: '#60a5fa',
+    color: '#4ea1ff',
     textDecoration: 'none',
     fontWeight: 'bold'
   },
