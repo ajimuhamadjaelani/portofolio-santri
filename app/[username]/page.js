@@ -31,13 +31,29 @@ export default async function Page({ params }) {
 
         <div style={styles.grid}>
           {karya?.map((item) => (
-            <div key={item.id} style={styles.card}>
-              <h3 style={styles.cardTitle}>{item.judul}</h3>
-              <p style={styles.cardDesc}>{item.deskripsi}</p>
-              <a href={item.link} style={styles.link}>
-                Lihat →
-              </a>
-            </div>
+  
+
+<div key={item.id} style={styles.card}>
+  
+  {item.foto && (
+    <img
+      src={item.foto}
+      alt={item.judul}
+      style={styles.image}
+    />
+  )}
+
+  <h3 style={styles.cardTitle}>{item.judul}</h3>
+  <p style={styles.cardDesc}>{item.deskripsi}</p>
+
+  <a href={item.link} style={styles.link}>
+    Lihat →
+  </a>
+</div>
+
+
+
+
           ))}
         </div>
       </div>
@@ -46,6 +62,15 @@ export default async function Page({ params }) {
 }
 
 const styles = {
+image: {
+  width: '100%',
+  height: 500,
+  objectFit: 'cover',
+  borderRadius: 10,
+  marginBottom: 10,
+  border: '1px solid #1f2a44'
+},
+
   page: {
     minHeight: '100vh',
     background: '#0b0f19',
