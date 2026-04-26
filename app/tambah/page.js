@@ -1,7 +1,11 @@
 'use client'
 
+
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+
+console.log("FILE:", foto)
+console.log("FILENAME:", fileName)
 
 export default function TambahKarya() {
   const [form, setForm] = useState({
